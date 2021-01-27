@@ -36,7 +36,6 @@
 
 <script>
 import PostDataService from "../services/PostDataService";
-
 export default {
   name: "add-post",
   data() {
@@ -56,7 +55,6 @@ export default {
         title: this.post.title,
         description: this.post.description
       };
-
       PostDataService.create(data)
         .then(response => {
           this.post.id = response.data.id;

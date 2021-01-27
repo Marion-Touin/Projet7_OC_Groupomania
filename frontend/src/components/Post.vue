@@ -55,7 +55,6 @@
 
 <script>
 import PostDataService from "../services/PostDataService";
-
 export default {
   name: "post",
   data() {
@@ -75,7 +74,6 @@ export default {
           console.log(e);
         });
     },
-
     updatePublished(status) {
       var data = {
         id: this.currentPost.id,
@@ -83,7 +81,6 @@ export default {
         description: this.currentPost.description,
         published: status
       };
-
       PostDataService.update(this.currentPost.id, data)
         .then(response => {
           this.currentPost.published = status;
@@ -93,7 +90,6 @@ export default {
           console.log(e);
         });
     },
-
     updatePost() {
       PostDataService.update(this.currentPost.id, this.currentPost)
         .then(response => {
@@ -104,7 +100,6 @@ export default {
           console.log(e);
         });
     },
-
     deletePost() {
       PostDataService.delete(this.currentPost.id)
         .then(response => {

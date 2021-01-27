@@ -59,7 +59,6 @@
 
 <script>
 import PostDataService from "../services/PostDataService";
-
 export default {
   name: "posts-list",
   data() {
@@ -81,18 +80,15 @@ export default {
           console.log(e);
         });
     },
-
     refreshList() {
       this.retrievePosts();
       this.currentPost = null;
       this.currentIndex = -1;
     },
-
     setActivePost(post, index) {
       this.currentPost = post;
       this.currentIndex = index;
     },
-
     removeAllPosts() {
       PostDataService.deleteAll()
         .then(response => {
