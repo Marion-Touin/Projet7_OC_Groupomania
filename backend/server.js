@@ -16,10 +16,16 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const db = require("./models");
+
+db.sequelize.sync();
+
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Bienvenue sur le site Groupomania!" });
+  res.json({ message: "Bienvenue sur le site Groupomania !" });
 });
+
+require("./routes/post.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
