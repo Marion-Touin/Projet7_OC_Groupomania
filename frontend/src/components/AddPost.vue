@@ -23,6 +23,23 @@
           name="description"
         />
       </div>
+      <div>
+      <form
+            class="mt-4"
+            action="/upload"
+            method="POST"
+            enctype="multipart/form-data"
+          >
+            <div class="form-group">
+              <input
+                type="file"
+                name="file"
+                id="input-files"
+                class="form-control-file border"
+              />
+            </div>
+          </form>
+      </div>
 
       <button @click="savePost" class="btn btn-success">Submit</button>
     </div>
