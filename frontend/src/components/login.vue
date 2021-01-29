@@ -4,6 +4,6 @@
 
 <style>
 .title__connexion{
-    margin-left: 58%;
+    margin-left: 56%;
 }
 </style>
