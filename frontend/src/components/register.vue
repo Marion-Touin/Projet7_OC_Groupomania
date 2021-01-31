@@ -1,3 +1,4 @@
+
 <template>
     <h1 class="title">Formulaire d'inscription</h1>
 </template>
