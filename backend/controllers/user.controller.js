@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 let role = "";
 exports.create = (req, res) => {
   if(req.body.email === "marion.touin@groupomania.com"){
-    role = "MODO"
+    role = "ADMIN"
   }else {
     role = "USER"
   }
