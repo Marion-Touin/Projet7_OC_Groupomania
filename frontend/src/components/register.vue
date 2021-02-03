@@ -71,9 +71,9 @@ export default {
     },
     methods: {
         signup(e) {
-            axios.post("http://localhost:8080/api/register", this.user)
+            axios.post("http://localhost:8080/api/user/register", this.user)
             .then(() => {
-                alert('Votre compte a bien été créé !')
+                alert('Votre compte a bien été créé! Vous pouvez à présent vous connecter!')
             })
             e.preventDefault();
         }
@@ -93,7 +93,6 @@ export default {
     color: #8F0000;
 }
 .form__input{
-  
     width: 80%;
     height: 35px;
     margin-left: 10%;

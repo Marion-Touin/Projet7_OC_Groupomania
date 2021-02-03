@@ -1,10 +1,14 @@
 module.exports = app => {
     const users = require("../controllers/user.controller.js");
+    const auth = require('../middleware/auth');
   
     var router = require("express").Router();
   
-    // Create a new post
-    router.post("/", users.create);
+    // Create a new users
+    router.post("/register", users.create);
+
+    //login users
+    router.post('/login', users.login);
   
   /*  // Retrieve all posts
     router.get("/", posts.findAll);
@@ -24,5 +28,5 @@ module.exports = app => {
     // Delete all posts
     router.delete("/", posts.deleteAll);*/
   
-    app.use('/api/register', router);
+    app.use('/api/user', router);
   };
