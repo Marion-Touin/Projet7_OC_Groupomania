@@ -6,20 +6,20 @@
             <div>
                 <label class="register__label" for="username">Pseudonyme:</label>
                 <input class="register__input" type="text" name="username" id="username" v-model="username"><br/>
-                <span class="error" v-if="(!$v.username.required && $v.username.$dirty) && submited">Veuillez saisir votre pseudonyme!</span>
+                <span class="error" v-if="(!$v.username.required && $v.username.$dirty) && submited">Veuillez saisir votre pseudonyme !</span>
                 <span class="error" v-if="!$v.username.alpha && $v.username.$dirty">Veuillez saisir un pseudonyme valide !</span>
             </div>
             <div>
                 <label class="register__label" for="email">Email:</label>
-                <input class="register__input" type="email" name="email" id="email" v-model="email" v-on:focus="deActivate">
-                <span class="error" v-if="((!$v.email.required || !$v.email.email) && $v.email.$dirty) && submited">Veuillez saisir un email valide</span>
-                <span class="error" v-if="responseEmailError">L'inscription a échouée, merci de réessayer</span>
+                <input class="register__input" type="email" name="email" id="email" v-model="email" v-on:focus="deActivate"><br/>
+                <span class="error" v-if="((!$v.email.required || !$v.email.email) && $v.email.$dirty) && submited">Veuillez saisir un email valide !</span>
+                <span class="error" v-if="responseEmailError">L'inscription a échouée, merci de réessayer !</span>
             </div>
             <div>
                 <label class="register__label" for="password">Mot de passe:</label>
-                <input class="register__input" type="password" name="password" id="password" v-model="password">
-                <span class="error" v-if="(!$v.password.required && $v.password.$dirty) && submited">Veuillez rentrer un mot de passe </span>
-                <span class="error" v-if="(!$v.password.isPasswordStrong) && $v.password.$dirty">Le mot de passe doit être contenir minimum 8 caractères avec au moins une minuscule, une majuscule, un chiffre et un caractère spécial</span>
+                <input class="register__input" type="password" name="password" id="password" v-model="password"><br/>
+                <span class="error" v-if="(!$v.password.required && $v.password.$dirty) && submited">Veuillez saisir un mot de passe !</span>
+                <span class="error" v-if="(!$v.password.isPasswordStrong) && $v.password.$dirty">Votre mot de passe doit être contenir minimum 8 caractères avec au moins une minuscule, une majuscule, un chiffre et un caractère spécial.</span>
             </div>
             <div>
                 <button class="register__submit" type="submit">S'INSCRIRE</button>
@@ -76,9 +76,6 @@ export default {
                     username: this.username,
                     email: this.email,
                     password: this.password
-                },
-                {
-                    headers:{ 'Content-type': 'application/json'}
                 })
                 .then(res => {
                     console.log(res);
@@ -110,21 +107,24 @@ export default {
     &__label{
     margin-left: 38%;
     font-size: 25px;
-    color: #8F0000;
+    color: #861313;
     }
     &__input{
     width: 80%;
     height: 35px;
     margin-left: 10%;
-    border-color: #8F0000;
+    border-color: #861313;
     }
     &__submit{
     width: 50%;
     height: 50px;
     margin: 5% 0 5% 25%;
     font-size: 20px;
-    border-color: #8F0000;
+    border-color: #861313;
     background-color: #FFF;
     }
+}
+.error{
+    color: #000;
 }
 </style>
