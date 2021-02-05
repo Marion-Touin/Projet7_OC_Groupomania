@@ -1,83 +1,96 @@
 
 <template>   
     <div class="register" >
-        <form
-            class="register__form"
-            method="post"
-        >
+        <form class="register__form" method="post" v-on:submit.prevent="register()">
             <h1 class="register__title">Formulaire d'inscription</h1>
-            <p>
-            <label for="username" class="register__label" required>Pseudonyme:</label>
-            </p>
-            <p>
-            <input
-                class="register__input"
-                id="username"
-                v-model="user.username"
-                type="text"
-                name="username"
-            >
-            </p>
-            <p>
-            <label for="email" class="register__label" required>Email:</label>
-            </p>
-            <p>
-            <input
-                class="register__input"
-                id="email"
-                v-model="user.email"
-                type="text"
-                name="email"
-            >
-            </p>
-            <p>
-            <label for="password" class="register__label" required>Mot de passe:</label>
-            </p>
-            <p>
-            <input
-                class="register__input"
-                id="password"
-                v-model="user.password"
-                type="text"
-                name="password"
-            >
-            </p>
-            <p>
-            <button
-                class="register__submit"
-                type="submit"
-                @click="signup"
-            >Envoyer
-            </button>
-            </p>
+            <div>
+                <label class="register__label" for="username">Pseudonyme:</label>
+                <input class="register__input" type="text" name="username" id="username" v-model="username"><br/>
+                <span class="error" v-if="(!$v.username.required && $v.username.$dirty) && submited">Veuillez saisir votre pseudonyme!</span>
+                <span class="error" v-if="!$v.username.alpha && $v.username.$dirty">Veuillez saisir un pseudonyme valide !</span>
+            </div>
+            <div>
+                <label class="register__label" for="email">Email:</label>
+                <input class="register__input" type="email" name="email" id="email" v-model="email" v-on:focus="deActivate">
+                <span class="error" v-if="((!$v.email.required || !$v.email.email) && $v.email.$dirty) && submited">Veuillez saisir un email valide</span>
+                <span class="error" v-if="responseEmailError">L'inscription a échouée, merci de réessayer</span>
+            </div>
+            <div>
+                <label class="register__label" for="password">Mot de passe:</label>
+                <input class="register__input" type="password" name="password" id="password" v-model="password">
+                <span class="error" v-if="(!$v.password.required && $v.password.$dirty) && submited">Veuillez rentrer un mot de passe </span>
+                <span class="error" v-if="(!$v.password.isPasswordStrong) && $v.password.$dirty">Le mot de passe doit être contenir minimum 8 caractères avec au moins une minuscule, une majuscule, un chiffre et un caractère spécial</span>
+            </div>
+            <div>
+                <button class="register__submit" type="submit">S'INSCRIRE</button>
+            </div>
         </form>
     </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
+import { required, alpha, email } from 'vuelidate/lib/validators'
 import axios from 'axios'
 export default {
-    name: 'signup',
-    data() {
-        return {
-            user: {
-                username: null,
-                email: null,
-                password: null,
+    name: 'Register',
+    data(){
+        return{
+            username: "",
+            email:"",
+            password:"",
+            submited: false,
+            responseEmailError: false
+        }
+    },
+    validations: {
+        username: {
+            required,
+            alpha
+        },
+        email: {
+            required,
+            email
+        },
+        password:{
+            required,
+            isPasswordStrong(password) {
+                const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&-_]){8,}/;
+                return regex.test(password);
             }
         }
     },
-    components: {
-    },
-    methods: {
-        signup(e) {
-            axios.post("http://localhost:8080/api/user/register", this.user)
-            .then(() => {
-                alert('Votre compte a bien été créé! Vous pouvez à présent vous connecter!')
-            })
-            e.preventDefault();
+   methods: {
+        deActivate() {
+            this.responseEmailError= false
+        },
+        register() {
+            this.$v.$touch();
+            this.submited = true;
+            console.log(!this.$v.password.isPasswordStrong);
+            console.log(!this.$v.password.$dirty);
+            if(!this.$v.$invalid) {
+                axios.post('http://localhost:8080/api/user/register',{
+                    username: this.username,
+                    email: this.email,
+                    password: this.password
+                },
+                {
+                    headers:{ 'Content-type': 'application/json'}
+                })
+                .then(res => {
+                    console.log(res);
+                    alert('Votre compte a bien été créé! Vous pouvez à présent vous connecter!')
+                })
+                .catch(error => {
+                    this.responseEmailError = true;
+                    console.log({error})
+                });
+            }
         }
-    } 
+    }
 }
 </script>
 
