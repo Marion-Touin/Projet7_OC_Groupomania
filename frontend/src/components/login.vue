@@ -63,37 +63,37 @@ export default {
 }
 </script>
 
-
-<style>
+<style lang="scss" scoped>
 .login{
     padding-bottom: 10%;
-}
-.login__form{
-    border: #FFF 2px solid;
-    margin: 0 15% 0 50%;  
-}
-.login__title{
-    margin-left: 25%;
-    padding-bottom: 3%;
-    text-decoration: underline;
-}
-.login__label{
-    margin-left: 38%;
-    font-size: 25px;
-    color: #8F0000;
-}
-.login__input{
-    width: 80%;
-    height: 35px;
-    margin-left: 10%;
-    border-color: #8F0000;
-}
-.login__submit{
-    width: 50%;
-    height: 50px;
-    margin: 5% 0 5% 25%;
-    font-size: 20px;
-    border-color: #8F0000;
-    background-color: #FFF;
+    background-color: #09FB98;
+    &__form{
+        border: #FFF 2px solid;
+        margin: 0 15% 0 50%; 
+    }
+    &__title{
+        margin-left: 25%;
+        padding-bottom: 3%;
+        text-decoration: underline;
+    }
+    &__label{
+        margin-left: 38%;
+        font-size: 25px;
+        color: #8F0000;
+    }
+    &__input{
+        width: 80%;
+        height: 35px;
+        margin-left: 10%;
+        border-color: #8F0000;
+    }
+    &__submit{
+        width: 50%;
+        height: 50px;
+        margin: 5% 0 5% 25%;
+        font-size: 20px;
+        border-color: #8F0000;
+        background-color: #FFF;
+    }
 }
 </style>

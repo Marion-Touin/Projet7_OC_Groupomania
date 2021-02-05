@@ -1,17 +1,17 @@
 
 <template>   
-    <div class="form" >
+    <div class="register" >
         <form
-            class="form__form"
+            class="register__form"
             method="post"
         >
-            <h1 class="title">Formulaire d'inscription</h1>
+            <h1 class="register__title">Formulaire d'inscription</h1>
             <p>
-            <label for="username" class="form__label" required>Pseudonyme:</label>
+            <label for="username" class="register__label" required>Pseudonyme:</label>
             </p>
             <p>
             <input
-                class="form__input"
+                class="register__input"
                 id="username"
                 v-model="user.username"
                 type="text"
@@ -19,11 +19,11 @@
             >
             </p>
             <p>
-            <label for="email" class="form__label" required>Email:</label>
+            <label for="email" class="register__label" required>Email:</label>
             </p>
             <p>
             <input
-                class="form__input"
+                class="register__input"
                 id="email"
                 v-model="user.email"
                 type="text"
@@ -31,11 +31,11 @@
             >
             </p>
             <p>
-            <label for="password" class="form__label" required>Mot de passe:</label>
+            <label for="password" class="register__label" required>Mot de passe:</label>
             </p>
             <p>
             <input
-                class="form__input"
+                class="register__input"
                 id="password"
                 v-model="user.password"
                 type="text"
@@ -44,7 +44,7 @@
             </p>
             <p>
             <button
-                class="form__submit"
+                class="register__submit"
                 type="submit"
                 @click="signup"
             >Envoyer
@@ -81,36 +81,37 @@ export default {
 }
 </script>
 
-<style>
-.title{
+<style lang="scss" scoped>
+.register{
+    padding-bottom: 10%;
+    background-color: #09FB98;
+    &__form{
+    border: #FFF 2px solid;
+    margin: 0 50% 0 15%;
+    }
+    &__title{
     margin-left: 25%;
     padding-bottom: 3%;
     text-decoration: underline;
-}
-.form__label{
+    }
+    &__label{
     margin-left: 38%;
     font-size: 25px;
     color: #8F0000;
-}
-.form__input{
+    }
+    &__input{
     width: 80%;
     height: 35px;
     margin-left: 10%;
     border-color: #8F0000;
-}
-.form__submit{
+    }
+    &__submit{
     width: 50%;
     height: 50px;
     margin: 5% 0 5% 25%;
     font-size: 20px;
     border-color: #8F0000;
     background-color: #FFF;
-}
-.form__form{
-    border: #FFF 2px solid;
-    margin: 0 50% 0 15%;
-}
-.form{
-    padding-bottom: 10%;
+    }
 }
 </style>

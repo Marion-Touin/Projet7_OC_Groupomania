@@ -23,6 +23,11 @@ const routes = [
     path:'/accueil',
     name:'accueil',
     component: () => import('../components/accueil.vue')
+  },
+  {
+    path:'/profil',
+    name:'profil',
+    component: () => import('../components/profil.vue')
   }
 
 ]
