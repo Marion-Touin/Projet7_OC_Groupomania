@@ -16,11 +16,11 @@
 </template>
 
 <style lang="scss" scoped>
+$color: #a92323;
  .authentification{
-   background-color: #09FB98;
    &__lien{
-    font-size: 35px;
-    color: #8F0000;
+    font-size: 55px;
+    color: $color;
     padding-bottom: 2%;
     cursor: pointer;
     transform: scale(1);
@@ -30,24 +30,54 @@
    &__lien:hover{
     transform: scale(1.25);
     opacity: 0.7;
-    color: #8F0000;
+    color: $color;
    }
    &__marge{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
    }
    &__text{
-    font-size: 35px;
-    color: #8F0000;
+    font-size: 60px;
+    color: $color;
     text-align: center;
-    padding-bottom: 2%;
+    padding-bottom: 7%;
    }
  } 
  .image{
    display: flex;
    &__logo{
-    width: 30%;
-    margin: 3% auto 0;
+    width: 40%;
+    margin: 2% auto 1%;
+   }
+ }
+
+ @media all and (max-width: 1024px){
+   .image{
+     &__logo{
+       width: 60%;
+       padding: 10% 0;
+     }
+   }
+   .authentification{
+     &__text{
+       font-size: 40px;
+       padding-bottom: 15%;
+     }
+     &__lien{
+       font-size: 35px;
+     }
+   }
+ }
+
+ @media all and (max-width: 767px){
+   .authentification{
+     &__text{
+       font-size: 25px;
+       padding-bottom: 15%;
+     }
+     &__lien{
+       font-size: 20px;
+     }
    }
  }
 </style>

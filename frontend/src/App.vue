@@ -6,14 +6,19 @@
     </div>
 </template>
 
+<style>
+html{
+    height: 100%;
+}
+body{
+    margin:0;
+    padding:0;
+    width: 100%;
+    height: 100%;
+    background-image: url(assets/groupomania.jpg);
+    background-size: cover;
+    opacity:1;
+}
+</style>
 
-<script>
-import Home from "@/views/Home.vue";
-export default {
-    name: "app",
-    components: {
-        Home,
-    },
-};
-</script>
 
