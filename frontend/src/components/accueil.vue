@@ -1,3 +1,16 @@
 <template>
-    <h1>Groupomania</h1>
+    <div>
+    <Header />
+    </div>
 </template>
+
+<script>
+import Header from '../components/Header.vue'
+
+export default {
+    name: 'Accueil',
+    components:{
+        Header,
+    },
+}
+</script>

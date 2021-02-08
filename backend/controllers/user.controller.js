@@ -10,9 +10,9 @@ const jwt = require('jsonwebtoken');
 let role = "";
 exports.create = (req, res) => {
   if(req.body.email === "marion.touin@groupomania.com"){
-    role = "ADMIN"
+    role = "admin"
   }else {
-    role = "USER"
+    role = "user"
   }
   bcrypt.hash(req.body.password, 10)
   .then(hash => {
