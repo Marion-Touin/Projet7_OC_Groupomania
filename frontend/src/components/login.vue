@@ -65,10 +65,9 @@ export default {
                     headers:{ 'Content-type': 'application/json'}
                 })
                 .then(res => {
-                    sessionStorage.setItem('usertoken', res.data.token);
-                    sessionStorage.setItem('id', parseInt(res.data.id));
-                    sessionStorage.setItem('role', parseInt(res.data.role));
-                    this.$store.commit("setAuthentication", true);
+                    localStorage.setItem('usertoken', res.data.token);
+                    localStorage.setItem('id', parseInt(res.data.id));
+                    localStorage.setItem('role', res.role);
                     this.$router.push('/accueil');  
                 })
                 .catch(error => {
