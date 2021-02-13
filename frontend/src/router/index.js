@@ -28,12 +28,8 @@ const routes = [
     path:'/profil',
     name:'profil',
     component: () => import('../components/profil.vue')
-  },
-  {
-    path:'/header',
-    name:'header',
-    component: () => import('../components/Header.vue')
   }
+  
   
 
 ]

@@ -1,4 +1,3 @@
-
 <template>   
     <div class="register" >
         <div class="register__image">
@@ -37,7 +36,6 @@ import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
 import { required, alpha, email } from 'vuelidate/lib/validators'
 import axios from 'axios'
-
 export default {
     name: 'Register',
     data(){
@@ -93,7 +91,6 @@ export default {
         }
     }
 }
-
 </script>
 
 <style lang="scss" scoped>

@@ -29,7 +29,6 @@ import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
 import axios from 'axios'
 import { required, email} from 'vuelidate/lib/validators'
-
 export default {
     name: 'Login',
     data(){
@@ -67,7 +66,7 @@ export default {
                 .then(res => {
                     localStorage.setItem('usertoken', res.data.token);
                     localStorage.setItem('id', parseInt(res.data.id));
-                    localStorage.setItem('role', res.role);
+                    localStorage.setItem('role', res.data.role);
                     this.$router.push('/accueil');  
                 })
                 .catch(error => {
