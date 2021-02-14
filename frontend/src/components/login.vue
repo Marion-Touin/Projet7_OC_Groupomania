@@ -64,9 +64,12 @@ export default {
                     headers:{ 'Content-type': 'application/json'}
                 })
                 .then(res => {
+                    console.log(res.data)
                     localStorage.setItem('usertoken', res.data.token);
                     localStorage.setItem('id', parseInt(res.data.id));
                     localStorage.setItem('role', res.data.role);
+                    localStorage.setItem('username', res.data.username);
+
                     this.$router.push('/accueil');  
                 })
                 .catch(error => {

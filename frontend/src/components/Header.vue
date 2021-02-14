@@ -16,13 +16,13 @@ export default {
     name:'NavBar',
     data(){
         return {
-            userId: sessionStorage.getItem('userId')
+            userId: localStorage.getItem('userId')
         }
     },
     methods:{
         Logout(){
-            console.log("Sessionstorage Cleared");
-            sessionStorage.clear();
+            console.log("localstorage Cleared");
+            localStorage.clear();
             this.$router.push('/Login');
         }
     }

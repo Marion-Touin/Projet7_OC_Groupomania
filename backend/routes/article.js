@@ -1,10 +1,11 @@
-const multer = require('../middleware/multer-config');
+
 module.exports = app => {
+    const multer = require('../middleware/multer-config');
     var router = require("express").Router();
     const articles = require("../controllers/article.js");
 
     const auth = require('../middleware/auth');
-    
+
     //post un article
     router.post('/', auth, multer, articles.createArticle)
     //modifier un article

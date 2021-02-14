@@ -20,16 +20,9 @@ const db = require("./models");
 
 db.sequelize.sync();
 
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Bienvenue sur le site Groupomania !" });
-});
-
 app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use('/imagesProfile', express.static(path.join(__dirname, 'imagesProfile')));
 
 require("./routes/article")(app); 
-require("./routes/com")(app);
 require("./routes/user.routes")(app);
 
 // set port, listen for requests

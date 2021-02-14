@@ -2,7 +2,6 @@ const db = require("../models/");
 const Articles = db.articles;
 const Op = db.Sequelize.Op;
 
-
 exports.createArticle = (req, res, next) => {
   const article = {
     message: req.body.message,
@@ -28,7 +27,7 @@ exports.modifyArticle = (req, res, next) => {
     message: req.body.message,
     userId: req.body.userId,
     image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-  } : { 
+  } : {  
     message: req.body.message,
     userId: req.body.userId,}
     
