@@ -3,7 +3,7 @@
     <Header />
         <main>
             <div>
-                <h2 class="profil__titre">Bonjour (nom) !</h2>
+                <h2 class="profil__titre">Bonjour {{ user.username}} !</h2>
             </div>
             <div>
                 <form class="profil__form" method="post" v-on:submit.prevent="modify()">
@@ -44,7 +44,6 @@ Vue.use(Vuelidate)
 import { required, alpha, email } from 'vuelidate/lib/validators'
 import axios from 'axios'
 import Header from '../components/Header.vue'
-
 export default {
     name: 'Profil',
     components:{
@@ -52,12 +51,9 @@ export default {
     },
     data(){
         return{
-
-            username: "",
-            email:"",
-            password:"",
-            submited: false,
-            responseEmailError: false
+            user:{
+                username: ""
+            }   
         }
     },
     validations: {

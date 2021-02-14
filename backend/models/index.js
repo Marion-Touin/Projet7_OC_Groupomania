@@ -31,7 +31,7 @@ db.articles.belongsTo(db.users, {
 });
 
 //association table commentaires à users
-/*db.users.hasMany(db.commentaires, { as: "commentaires" });
+db.users.hasMany(db.commentaires, { as: "commentaires" });
 db.commentaires.belongsTo(db.users, {
   foreignKey: "userId",
   as: "commentaires",
@@ -42,6 +42,6 @@ db.articles.hasMany(db.commentaires, { as: "commentaires" });
 db.commentaires.belongsTo(db.articles, {
   foreignKey: "articleId",
   as: "articles",
-});*/
+});
 
 module.exports = db;
