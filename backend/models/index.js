@@ -20,6 +20,7 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.articles = require("./article.js")(sequelize, Sequelize);
+db.commentaires = require("./commentaire.js")(sequelize, Sequelize);
 db.users = require("./user.model.js")(sequelize, Sequelize);
 
 // association table articles et users

@@ -23,6 +23,7 @@ db.sequelize.sync();
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 require("./routes/article")(app); 
+require("./routes/commentaire")(app); 
 require("./routes/user.routes")(app);
 
 // set port, listen for requests
