@@ -66,7 +66,7 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     localStorage.setItem('usertoken', res.data.token);
-                    localStorage.setItem('id', parseInt(res.data.id));
+                    localStorage.setItem('userId', parseInt(res.data.id));
                     localStorage.setItem('role', res.data.role);
                     localStorage.setItem('username', res.data.username);
 
