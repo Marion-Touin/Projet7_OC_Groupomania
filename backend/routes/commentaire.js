@@ -1,14 +1,13 @@
 module.exports = app => {
-    const multer = require('../middleware/multer-config');
     var router = require("express").Router();
     const commentaires = require("../controllers/commentaire.js");
 
     const auth = require('../middleware/auth');
 
     //post un commentaire
-    router.post('/', auth, multer, commentaires.createCommentaire)
+    router.post('/', auth, commentaires.createCommentaire)
     //modifier un Commentaire
-    router.put('/:id', auth, multer,commentaires.modifyCommentaire);
+    router.put('/:id', auth, commentaires.modifyCommentaire);
     //supprimer la route
     router.delete('/:id', auth,commentaires.deleteCommentaire);
     //route pour un Commentaire en fonction d'orderId

@@ -7,7 +7,6 @@ exports.createCommentaire = (req, res, next) => {
     message: req.body.message,
     articleId: req.body.articleId,
     userId: req.body.userId,
-    image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
   };
   Commentaires.create(commentaire)
     .then(commentaire => {
@@ -28,7 +27,6 @@ exports.modifyCommentaire = (req, res, next) => {
     message: req.body.message,
     articleId: req.body.articleId,
     userId: req.body.userId,
-    image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
   } : {  
     message: req.body.message,
     articleId: req.body.articleId,

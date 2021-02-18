@@ -11,11 +11,6 @@ module.exports = (sequelize, Sequelize) => {
          allowNull: false,
          required: true
        },
-       'image': {
-         type: Sequelize.STRING,
-         allowNull: false,
-         required: true
-       },
        'articleId': {
         type: Sequelize.INTEGER(11),
         allowNull: false,
