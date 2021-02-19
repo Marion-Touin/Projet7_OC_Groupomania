@@ -1,11 +1,18 @@
 <template>
     <main>
-
+        <!--Affichage du bouton pour créer un article-->
         <createArticle />
+        <!--Affichage de l'article-->
         <div id="article" v-for="article in articles" :key="article.articleId" class="article"> 
             <b-card :img-src = "article.image"  img-alt = "Image de la carte"  img-bottom> 
                 <b-card-text class="article__date">le {{ article.createdAt | formatDate }}</b-card-text> 
-                <b-card-text class="article__message">{{article.message}}</b-card-text> 
+                <b-card-text class="article__message">{{article.message}}</b-card-text>
+
+                <!--Bouton pour modifier l'article-->
+               <modifyArticle />
+
+                <!--Bouton pour supprimer l'article-->
+                <button v-on:click="deleteArticle(article.id)" v-if="article.userId == userId || role == 'admin'">Supprimer</button>
                 <!-- <createCommentaire /> -->
             </b-card> 
         </div>
@@ -15,12 +22,14 @@
 <script>
 import axios from 'axios'
 import createArticle from '../components/createArticle.vue'
+import modifyArticle from '../components/modifyArticle.vue'
 /* import createCommentaire from '../components/createCommentaire.vue' */
 
 export default {
-    name: 'articles',
+    name: 'Articles',
     components: {
         createArticle,
+        modifyArticle,
         /* createCommentaire, */
     },
     data(){
@@ -32,7 +41,7 @@ export default {
         }
     },
     methods:{
-        deletearticle(id){
+        deleteArticle(id){
             const articleId = id;
             const token = localStorage.getItem('usertoken');
             const url = 'http://localhost:8080/api/articles/' + articleId
