@@ -81,7 +81,8 @@ export default {
                 })
                 .then(res => {
                     console.log(res);
-                    alert('Votre compte a bien été créé! Vous pouvez à présent vous connecter!')
+                    alert('Votre compte a bien été créé! Vous pouvez à présent vous connecter!');
+                    this.$router.push('/login');
                 })
                 .catch(error => {
                     this.responseEmailError = true;

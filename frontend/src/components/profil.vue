@@ -1,16 +1,16 @@
 <template>
     <main>
+        <Header />
         <!--Affichage de l'article-->
-        <div id="user" v-for="user in users" :key="user.userId" class="user">
-            <p>Bonjour {{user.username}} !</p>
+        <div>
+            <p>Bonjour {{users.username}} !</p>
             <p>Voici les informations de votre compte : </p>
-            <p> USERNAME : {{user.username}}</p>
-            <p>EMAIL : {{user.email}}</p>
-            <p>{{user.id}}</p>
-            <p>Creation du compte: {{ user.createdAt | formatDate }}</p>
+            <p> USERNAME : {{users.username}}</p>
+            <p>EMAIL : {{users.email}}</p>
+            <p>Creation du compte: {{ users.createdAt | formatDate }}</p>
 
             <!--Bouton pour supprimer l'article-->
-            <button v-on:click="deleteUser(user.id)" v-if="user.userId == userId || role == 'admin'">Supprimer</button>
+            <button v-on:click="deleteUser(users.id)" v-if="userId = users.id">Supprimer</button>
 
             
         </div>
@@ -18,10 +18,13 @@
 </template>
 
 <script>
+import Header from '../components/Header.vue'
 import axios from 'axios' 
-
 export default {
     name: 'Users',
+        components:{
+        Header,
+    },
     data(){
         return {
             users: "",
@@ -47,6 +50,7 @@ export default {
             .catch(error => console.log(error));
         },
         printNewusers(){
+            const id = localStorage.getItem('userId');
             const token = localStorage.getItem('usertoken');
             const header = {
                 headers: {
@@ -54,11 +58,11 @@ export default {
                     'Authorization': `Bearer ${token}`
                 }
             }
-            axios.get('http://localhost:8080/api/user/', header)
+            axios.get('http://localhost:8080/api/user/'+ id, header)
             .then(res => {
                 const data = res.data;
                 this.users = data;
-                console.log(data)
+                console.log(data.username)
             })
             .catch(error => console.log({error}));
         }

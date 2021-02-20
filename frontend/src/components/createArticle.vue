@@ -78,7 +78,8 @@ export default {
                     }
                 })
                 .then(() => {
-                    alert('Votre post à bien été enregistré !')
+                    alert('Votre post à bien été enregistré !');
+                    this.$router.push('/accueil');
                 })
                 .catch(error => console.log(error));
             }
