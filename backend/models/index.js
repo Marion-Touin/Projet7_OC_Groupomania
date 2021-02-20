@@ -24,11 +24,11 @@ db.commentaires = require("./commentaire.js")(sequelize, Sequelize);
 db.users = require("./user.model.js")(sequelize, Sequelize);
 
 // association table articles et users
-db.users.hasMany(db.articles, { as: "articles" });
+db.users.hasMany(db.articles, { name: "articles" });
 db.articles.belongsTo(db.users, {
   foreignKey: "userId",
-  as: "articles",
-});
+  name: "articles",
+}); 
 
 //association table commentaires à users
 db.users.hasMany(db.commentaires, { as: "commentaires" });

@@ -1,102 +1,70 @@
 <template>
-    <div>
-    <Header />
+    <div class="profile">
         <main>
-            <div>
-                <h2 class="profil__titre">Bonjour {{ user.username}} !</h2>
-            </div>
-            <div>
-                <form class="profil__form" method="post" v-on:submit.prevent="modify()">
-                <h3 class="profil__title">Modifer mes informations !</h3>
-                    <div>
-                        <label class="profil__label" for="username">Pseudonyme:</label>
-                        <input class="profil__input" type="text" name="username" id="username" v-model="username"><br/>
-                        <span class="error" v-if="(!$v.username.required && $v.username.$dirty) && submited">Veuillez saisir votre pseudonyme !</span>
-                        <span class="error" v-if="!$v.username.alpha && $v.username.$dirty">Veuillez saisir un pseudonyme valide !</span>
-                    </div>
-                    <div>
-                        <label class="profil__label" for="email">Email:</label>
-                        <input class="profil__input" type="email" name="email" id="email" v-model="email" v-on:focus="deActivate"><br/>
-                        <span class="error" v-if="((!$v.email.required || !$v.email.email) && $v.email.$dirty) && submited">Veuillez saisir un email valide !</span>
-                        <span class="error" v-if="responseEmailError">L'inscription a échouée, merci de réessayer !</span>
-                    </div>
-                    <div>
-                        <label class="profil__label" for="password">Mot de passe:</label>
-                        <input class="profil__input" type="password" name="password" id="password" v-model="password"><br/>
-                        <span class="error" v-if="(!$v.password.required && $v.password.$dirty) && submited">Veuillez saisir un mot de passe !</span>
-                        <span class="error" v-if="(!$v.password.isPasswordStrong) && $v.password.$dirty">Votre mot de passe doit être contenir minimum 8 caractères avec au moins une minuscule, une majuscule, un chiffre et un caractère spécial.</span>
-                    </div>
-                    <div>
-                        <button class="profil__submit" type="submit">MODIFIER</button>
-                    </div>
-                </form>
-            </div>
-            <div>
-                <button class="profil__submit" type="submit">Supprimer mon compte</button>
+            <div id="profile" v-for="user in profile" :key="user.userId">
+                <h3>Bonjour <span>{{ user.username }}</span> ravi de vous revoir !</h3><hr>
+                <div id="profile_informations">
+                    <p>{{ userId.username }}</p>
+                    <p>Vous êtes parmis nous depuis le :</p>
+                    <p>{{ user.createdAt | formatDate }}</p>
+                </div> 
+                <button @click="toggleModale">Supprimer mon compte</button>
+                <div id="modal-confirmation" v-if="showModal===true" @close="toggleModale">
+                    <hr>
+                    <p id="confirm-delete">Etes vous sûr de vouloir supprimer votre compte ?</p>
+                    <button id="confirm" @click="deleteAccount">OUI</button>
+                    <button id="cancel" @click="toggleModale">NON</button>
+                </div>
             </div>
         </main>
     </div>
 </template>
+
 <script>
-import Vue from 'vue'
-import Vuelidate from 'vuelidate'
-Vue.use(Vuelidate)
-import { required, alpha, email } from 'vuelidate/lib/validators'
 import axios from 'axios'
-import Header from '../components/Header.vue'
 export default {
-    name: 'Profil',
-    components:{
-        Header,
-    },
+    name: 'Profile',
+    props: ['userId', 'token'],
     data(){
-        return{
-            user:{
-                username: ""
-            }   
+        return {
+            profile:"",
+            showModal: false
         }
     },
-    validations: {
-        username: {
-            required,
-            alpha
+    methods:{
+        toggleModale(){
+            this.showModal = !this.showModal
         },
-        email: {
-            required,
-            email
+        deleteAccount(){
+            axios.delete('http://localhost:8080/api/user/' + this.userId, {
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization': `Bearer ${this.token}`
+                }
+            })
+            .then(() => {
+                console.log("Profil supprimé");
+                sessionStorage.clear();
+                this.$store.commit("setAuthentication", false);
+                this.$router.push('/login');
+            })
         },
-        password:{
-            required,
-            isPasswordStrong(password) {
-                const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&-_]){8,}/;
-                return regex.test(password);
+                printNewusers(){
+            const token = localStorage.getItem('usertoken');
+            const header = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
             }
+            axios.get('http://localhost:8080/api/user/', header)
+            .then(res => {
+                const data = res.data;
+                this.users = data;
+            })
+            .catch(error => console.log({error}));
         }
     },
-       methods: {
-        deActivate() {
-            this.responseEmailError= false
-        },
-        modify() {
-            this.$v.$touch();
-            this.submited = true;
-            if(!this.$v.$invalid) {
-                axios.put('http://localhost:3000/api/auth/',{
-                    username: this.username,
-                    email: this.email,
-                    password: this.password
-                })
-                .then(res => {
-                    console.log(res);
-                    alert('Votre compte a bien été modifié !')
-                })
-                .catch(error => {
-                    this.responseEmailError = true;
-                    console.log({error})
-                });
-            }
-        }
-    }
 }
 </script>
 

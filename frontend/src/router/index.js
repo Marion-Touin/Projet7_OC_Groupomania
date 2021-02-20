@@ -33,11 +33,6 @@ const routes = [
     path:'/createArticle',
     name:'createArticle',
     component: () => import('../components/createArticle.vue')
-  },
-  {
-    path:'/modifyArticle',
-    name:'modifyArticle',
-    component: () => import('../components/modifyArticle.vue')
   }
   
   

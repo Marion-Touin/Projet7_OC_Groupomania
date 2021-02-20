@@ -12,7 +12,7 @@ module.exports = app => {
     router.put('/:id', auth, users.modifyUser);
     router.delete('/:id',auth, users.deleteUser);
     router.get('/:id',auth,  users.getOneUser)
-    router.get('/',  users.getAllUser);
+    router.get('/',auth, users.getAllUser);
   
     app.use('/api/user', router);
   };
