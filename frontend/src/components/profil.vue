@@ -1,55 +1,52 @@
 <template>
-    <div class="profile">
-        <main>
-            <div id="profile" v-for="user in profile" :key="user.userId">
-                <h3>Bonjour <span>{{ user.username }}</span> ravi de vous revoir !</h3><hr>
-                <div id="profile_informations">
-                    <p>{{ userId.username }}</p>
-                    <p>Vous êtes parmis nous depuis le :</p>
-                    <p>{{ user.createdAt | formatDate }}</p>
-                </div> 
-                <button @click="toggleModale">Supprimer mon compte</button>
-                <div id="modal-confirmation" v-if="showModal===true" @close="toggleModale">
-                    <hr>
-                    <p id="confirm-delete">Etes vous sûr de vouloir supprimer votre compte ?</p>
-                    <button id="confirm" @click="deleteAccount">OUI</button>
-                    <button id="cancel" @click="toggleModale">NON</button>
-                </div>
-            </div>
-        </main>
-    </div>
+    <main>
+        <!--Affichage de l'article-->
+        <div id="user" v-for="user in users" :key="user.userId" class="user">
+            <p>Bonjour {{user.username}} !</p>
+            <p>Voici les informations de votre compte : </p>
+            <p> USERNAME : {{user.username}}</p>
+            <p>EMAIL : {{user.email}}</p>
+            <p>{{user.id}}</p>
+            <p>Creation du compte: {{ user.createdAt | formatDate }}</p>
+
+            <!--Bouton pour supprimer l'article-->
+            <button v-on:click="deleteUser(user.id)" v-if="user.userId == userId || role == 'admin'">Supprimer</button>
+
+            
+        </div>
+    </main>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios' 
+
 export default {
-    name: 'Profile',
-    props: ['userId', 'token'],
+    name: 'Users',
     data(){
         return {
-            profile:"",
-            showModal: false
+            users: "",
+            role: "",
+            userId: localStorage.getItem('userId'),
+            token: localStorage.getItem('usertoken'),
         }
     },
     methods:{
-        toggleModale(){
-            this.showModal = !this.showModal
-        },
-        deleteAccount(){
-            axios.delete('http://localhost:8080/api/user/' + this.userId, {
-                headers: {
-                    'Content-Type' : 'application/json',
-                    'Authorization': `Bearer ${this.token}`
+        deleteUser(id){
+            const userId = id;
+            const token = localStorage.getItem('usertoken');
+            const url = 'http://localhost:8080/api/user/' + userId
+            axios.delete(url, {
+                headers :{
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 }
             })
             .then(() => {
-                console.log("Profil supprimé");
-                sessionStorage.clear();
-                this.$store.commit("setAuthentication", false);
-                this.$router.push('/login');
+                alert('user supprimé');
             })
+            .catch(error => console.log(error));
         },
-                printNewusers(){
+        printNewusers(){
             const token = localStorage.getItem('usertoken');
             const header = {
                 headers: {
@@ -61,52 +58,16 @@ export default {
             .then(res => {
                 const data = res.data;
                 this.users = data;
+                console.log(data)
             })
             .catch(error => console.log({error}));
         }
     },
+    
+    beforeMount() {
+        const role = localStorage.getItem('role');
+        this.role = role;
+        this.printNewusers();
+    },
 }
 </script>
-
-<style lang="scss" scoped>
-$color: #a92323;
-.profil{
-    padding-bottom: 10%;
-    &__titre {
-        font-size: 40px;
-        text-align: center;
-    }
-    &__form{
-    border: $color 2px solid;
-    margin: 0 20%;
-    padding: 0 2%
-    }
-    &__title{
-    text-decoration: underline;
-    font-size: 35px;
-    text-align: center;
-    }
-    &__label{
-    margin-left: 40%;
-    font-size: 25px;
-    color: $color;
-    }
-    &__input{
-    margin: 2% 20%;
-    width: 60%;
-    height: 35px;
-    border-color: $color;
-    }
-    &__submit{
-    width: 50%;
-    height: 50px;
-    margin: 3% 0 3% 25%;
-    font-size: 20px;
-    border-color: $color;
-    background-color: #FFF;
-    }
-}
-.error{
-    color: #000;
-}
-</style>

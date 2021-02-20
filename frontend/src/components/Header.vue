@@ -5,7 +5,7 @@
         </div>
         <div class="header__liste">
                 <router-link to="/accueil" class="header__liste--lien">Accueil</router-link>
-                <router-link to="/profil" class="header__liste--lien">profil</router-link>
+                <router-link to="/profil" class="header__liste--lien" >profil</router-link>
                 <a to="/login" class="header__liste--lien" v-on:click="Logout()">Déconnexion</a>
         </div>
     </div>
