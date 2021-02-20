@@ -7,12 +7,11 @@
             <b-card :img-src = "article.image"  img-alt = "Image de la carte"  img-bottom> 
                 <b-card-text class="article__date">le {{ article.createdAt | formatDate }}</b-card-text> 
                 <b-card-text class="article__message">{{article.message}}</b-card-text>
-
-                <!--Bouton pour modifier l'article-->
-               <modifyArticle />
+                <b-card-text class="article__message">{{ article.userId}}</b-card-text>
 
                 <!--Bouton pour supprimer l'article-->
                 <button v-on:click="deleteArticle(article.id)" v-if="article.userId == userId || role == 'admin'">Supprimer</button>
+
                 <!-- <createCommentaire /> -->
             </b-card> 
         </div>
@@ -22,14 +21,12 @@
 <script>
 import axios from 'axios'
 import createArticle from '../components/createArticle.vue'
-import modifyArticle from '../components/modifyArticle.vue'
 /* import createCommentaire from '../components/createCommentaire.vue' */
 
 export default {
     name: 'Articles',
     components: {
         createArticle,
-        modifyArticle,
         /* createCommentaire, */
     },
     data(){
@@ -68,6 +65,7 @@ export default {
             .then(res => {
                 const data = res.data;
                 this.articles = data;
+                console.log(data)
             })
             .catch(error => console.log({error}));
         }
