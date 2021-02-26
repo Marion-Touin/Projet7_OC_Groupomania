@@ -15,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER(11),
         allowNull: false,
         requierd: true
-        },
+      },
        'userId': {
          type: Sequelize.INTEGER(11),
          allowNull: false,
@@ -33,7 +33,7 @@ module.exports = (sequelize, Sequelize) => {
        },
    
      }, {
-       tableName: 'Commentaires',
+       tableName: 'Commentaire',
        freezeTableName: true
      });
      return Commentaires

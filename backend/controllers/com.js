@@ -2,12 +2,15 @@ const db = require("../models/");
 const Commentaires = db.commentaires;
 const Op = db.Sequelize.Op;
 
-exports.createCommentaire = (req, res, next) => {
+
+exports.createCom = (req, res, next) => {
+  console.log(req.body)
   const commentaire = {
     message: req.body.message,
-    articleId: req.body.articleId,
+    articleId : req.body.articleId,
     userId: req.body.userId,
   };
+  console.log(commentaire)
   Commentaires.create(commentaire)
     .then(commentaire => {
       res.send(commentaire);
@@ -15,45 +18,36 @@ exports.createCommentaire = (req, res, next) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Une erreur s'est produite lors de la création du commentaire "
+          err || "Une erreur s'est produite lors de la création du commentaire "
       });
     });
-
 };
 
-exports.modifyCommentaire = (req, res, next) => {
+exports.modifyCom = (req, res, next) => {
   const id = req.params.id;
-  const modification = req.file ? {
-    message: req.body.message,
-    articleId: req.body.articleId,
-    userId: req.body.userId,
-  } : {  
-    message: req.body.message,
-    articleId: req.body.articleId,
-    userId: req.body.userId,}
-    
-  Commentaires.update(modification, {
+
+  Commentaires.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Le commentaire est modifié"
+          message: "Le commentaires est modifié."
         });
       } else {
         res.send({
-          message: `Impossible de mettre à jour le commentaire avec l'id=${id}.`
+          message: `Impossible de mettre à jour le commentaires avec l'id=${id}. `
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "erreur lors de la mise à jour du commentaire avec l'id=" + id
+        message: "erreur lors de la mise à jour du commentaires avec l'id=" + id
       });
     });
 };
 
-exports.deleteCommentaire = (req, res, next) => {
+exports.deleteCom = (req, res, next) => {
   const id = req.params.id;
 
   Commentaires.destroy({
@@ -62,22 +56,22 @@ exports.deleteCommentaire = (req, res, next) => {
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "commentaire supprimé!"
+          message: "Commentaire supprimé!"
         });
       } else {
         res.send({
-          message: `Impossible de supprimer le commentaire avec l'id=${id}.`
+          message: `Impossible de supprimer le commentaire avec l'id=${id}. `
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "erreur lors de la suppression du commentaire avec l'id=" + id
+        message: "Impossible de supprimer le commentaire avec l'id=" + id
       });
     });
 };
 
-exports.getOneCommentaire = (req, res, next) => {
+exports.getOneCom = (req, res, next) => {
  const id = req.params.id;
 Commentaires.findByPk(id)
  .then(data => {
@@ -90,15 +84,16 @@ Commentaires.findByPk(id)
  });
 }
 
-exports.findAll = (req, res, next) => {
+exports.getAllCom = (req, res, next) => {
   Commentaires.findAll({order: [['updatedAt', "DESC"], ['createdAt', "DESC"]] })
     .then(data => {
       res.send(data);
+     
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "erreur lors de la récupération des Commentaires"
+          err.message || "erreur lors de la récupération des commentaires"
       });
     });
-};
+}; 

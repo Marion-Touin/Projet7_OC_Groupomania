@@ -10,7 +10,7 @@
             <p>Creation du compte: {{ users.createdAt | formatDate }}</p>
 
             <!--Bouton pour supprimer l'article-->
-            <button v-on:click="deleteUser(users.id)" v-if="userId = users.id">Supprimer</button>
+            <button v-on:click="deleteUser(users.id)">Supprimer</button>
 
             
         </div>

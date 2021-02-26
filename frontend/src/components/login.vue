@@ -64,7 +64,6 @@ export default {
                     headers:{ 'Content-type': 'application/json'}
                 })
                 .then(res => {
-                    console.log(res.data)
                     localStorage.setItem('usertoken', res.data.token);
                     localStorage.setItem('userId', parseInt(res.data.id));
                     localStorage.setItem('role', res.data.role);

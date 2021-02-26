@@ -12,7 +12,7 @@
                 <button v-on:click="deleteArticle(article.id)" v-if="article.userId == userId || role == 'admin'">Supprimer</button>
 
                 <!-- <createCommentaire /> -->
-                <!-- <createCommentaire/> -->
+                <button v-on:click="createComment(article.id)"><createCommentaire/></button>
             </b-card> 
         </div>
     </main>
@@ -21,13 +21,12 @@
 <script>
 import axios from 'axios' 
 import createArticle from '../components/createArticle.vue'
-/* import createCommentaire from '../components/createCommentaire.vue'  */
-
+import createCommentaire from '../components/createCommentaire.vue' 
 export default {
     name: 'Articles',
     components: {
         createArticle,
-        /* createCommentaire,  */
+        createCommentaire, 
     },
     data(){
         return {
@@ -51,6 +50,21 @@ export default {
             .then(() => {
                 alert('article supprimé');
             })
+            .catch(error => console.log(error));
+        },
+            createComment(id){
+            const articleId = id;
+            const token = localStorage.getItem('usertoken');
+            const url = 'http://localhost:8080/api/articles/' + articleId
+            axios.get(url, {
+                headers :{
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(res => {
+                    sessionStorage.setItem('articleId', parseInt(res.data.id));
+                })
             .catch(error => console.log(error));
         },
         printNewarticles(){
