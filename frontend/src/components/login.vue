@@ -1,29 +1,35 @@
 <template>
-    <div class="login">
-        <div class="login__image">
-            <router-link to="/" class="login__image--position"><img src="../assets/logo.png" class="login__image--logo" alt="logo groupomania"></router-link>
+<div>
+    <headerHome/>
+        <div class="login__intro">
+            <p class="login__intro--text">Le réseau social pour les employés !</p>
         </div>
-        <form class="login__form" v-on:submit.prevent="login()">
-            <h1 class="login__title">Formulaire de connexion</h1>
-            <div>
-                <label class="login__label" for="email">Email:</label>
-                <input class="login__input" type="email" name="email" id="email" value="" v-model="email" v-on:focus="deActivate">
-                <span class="error" v-if="((!$v.email.required || !$v.email.email) && $v.email.$dirty) && submited">Veuillez saisir un email valide !</span>
-            </div>
-            <div>
-                <label class="login__label" for="password">Mot de passe:</label>
-                <input class="login__input" type="password" name="password" id="password" value="" v-model="password" v-on:focus="deActivate">
-                <span class="error" v-if="(!$v.password.required && $v.password.$dirty) && submited">Veuillez saisir votre mot de passe </span>
-            </div>
-                <span class="error" v-if="responseError && submited">Votre e-mail/votre mot de passe est incorrect !</span>
-            <div>
-                <button class="login__submit" type="submit">SE CONNECTER</button>
-            </div>
-        </form>
-    </div>
+        <div class="authentification__form">
+            <form class="login__form" v-on:submit.prevent="login()">
+                <div>
+                    <label class="login__label" for="email">Email:</label>
+                    <input class="login__input" type="email" name="email" id="email" value="" v-model="email" v-on:focus="deActivate">
+                    <span class="error" v-if="((!$v.email.required || !$v.email.email) && $v.email.$dirty) && submited">Veuillez saisir un email valide !</span>
+                </div>
+                <div>
+                    <label class="login__label" for="password">Mot de passe:</label>
+                    <input class="login__input" type="password" name="password" id="password" value="" v-model="password" v-on:focus="deActivate">
+                    <span class="error" v-if="(!$v.password.required && $v.password.$dirty) && submited">Veuillez saisir votre mot de passe </span>
+                </div>
+                    <span class="error" v-if="responseError && submited">Votre e-mail/votre mot de passe est incorrect !</span>
+                <div class="login__button">
+                    <router-link to="/register" class="login__inscription">S'INSCRIRE</router-link>
+                    <button class="login__submit" type="submit">SE CONNECTER</button>
+                </div>
+            </form>
+        </div>
+</div>
+
 </template>
 
 <script>
+import headerHome from '../components/headerHome.vue'
+
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
@@ -31,6 +37,9 @@ import axios from 'axios'
 import { required, email} from 'vuelidate/lib/validators'
 export default {
     name: 'Login',
+    components:{
+        headerHome,
+    },
     data(){
         return{
             email:"",
@@ -82,85 +91,182 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$color: #a92323;
+$color: #CF515D;
 .login{
-    padding-bottom: 10%;
-    &__image{
-        display: flex;
-        &--position{
-            margin: 2% auto ;
-        }
-        &--logo{
-            margin: 0 22%;
-            width: 60%;
-        }
-    }
     &__form{
-    border: $color 2px solid;
-    margin: 0 10%;
-    padding: 2% 2%
-    }
-    &__title{
-    text-decoration: underline;
-    font-size: 50px;
-    text-align: center;
-    padding-bottom: 3%;
+        margin: 3% 15%;
     }
     &__label{
-    margin-left: 40%;
-    font-size: 35px;
-    color: $color;
+        display: flex;
+        justify-content: center;
+        color: #FFF;
+        font-size: 22px;
+        text-align: center;
     }
     &__input{
-    margin: 2% 20%;
-    width: 60%;
-    height: 35px;
-    border-color: $color;
+        width: 100%;
+        border-radius: 10px;
     }
     &__submit{
-    width: 50%;
-    height: 50px;
-    margin: 5% 0 5% 25%;
-    font-size: 20px;
-    border-color: $color;
-    background-color: #FFF;
+        border: #CF515D 1px solid;
+        background-color: #FFF;
+        color: #0A2041;
+        font-size: 20px;
+        padding: 2% 8%;
+        margin: 8% 0;
+        border-radius: 10px;
     }
+    &__inscription{
+        border: #0A2041 1px solid;
+        background-color: #CF515D;
+        color: #FFF;
+        border-radius: 10px;
+        font-size: 20px;
+        padding: 2% 8%;
+        margin: 8% 0;
+        text-decoration: none;
+    }
+    &__button{
+        display: flex;
+        justify-content: space-around;
+    }
+    &__intro{
+        background-color: $color;
+        width: 40%;
+        height: 100px;
+        line-height: 100px;
+        margin: 2% auto;
+        opacity: 0.8;
+        &--text{
+            font-size: 30px;
+            color: #FFF;
+            text-align: center;
+        }
+    }
+}
+.authentification{
+    &__form{
+        border: $color 2px solid;
+        background-color: #0A2041;
+        opacity: 0.8;
+        width: 35%;
+        margin: 0 auto;
+   }
 }
 .error{
-    color: #000;
+    color: #FFF;
 }
 
+//responsive tablette
 @media all and (max-width: 1024px){
     .login{
-        &__image{
-            &--logo{
-                margin: 5% 19%;
-            }
-        }
-        &__title{
-            font-size: 40px;
-        }
-    }
-
-}
-
-@media all and (max-width: 767px){
-    .login{
-        &__title{
-            font-size: 20px;
+        &__intro{
+            width: 75%;
+            margin: 5% auto;
         }
         &__label{
-            margin-left: 35%;
-            font-size: 20px;
-        }
-        &__input{
-            margin: 2% 10%;
-            width: 80%;
+            font-size: 30px;
         }
         &__submit{
-            width: 70%;
-            margin: 5% 17%;
-            font-size: 15px;
+            margin: 15% 5%;
+            font-size: 13px;
+        }
+        &__inscription{
+            margin: 15% 5%;
+            font-size: 14px;
+        }
+    }
+    .authentification{
+        &__form{
+            width: 65%;
+        }
+    }
+}
+//responsive smartphone
+@media all and (max-width: 727px){
+    .login{
+        &__intro{
+            width: 80%;
+            height: 70px;
+            line-height: 70px;  
+            &--text{
+                font-size: 15px;
+            }
+        }
+        &__label{
+            font-size: 18px;
+        }
+        &__button{
+            display: flex;
+            flex-direction: column;
+        }
+        &__submit{
+            margin: 7% 5% 0;
+        }
+        &__connexion{
+            margin: 7% 5%;
+            text-align: center;
+        }
+    }
+    .authentification{
+        &__form{
+            width: 80%;
+        }
+    }
+}
+
+//responsive tablette
+@media all and (max-width: 1024px){
+    .login{
+        &__intro{
+            width: 75%;
+            margin: 5% auto;
+        }
+        &__label{
+            font-size: 30px;
+        }
+        &__submit{
+            margin: 10% 5%;
+        }
+        &__connexion{
+            margin: 10% 5%;
+        }
+    }
+    .authentification{
+        &__form{
+            width: 65%;
+        }
+    }
+}
+//responsive smartphone
+@media all and (max-width: 727px){
+    .login{
+        &__intro{
+            width: 80%;
+            height: 70px;
+            line-height: 70px;  
+            &--text{
+                font-size: 15px;
+            }
+        }
+        &__label{
+            font-size: 18px;
+        }
+        &__button{
+            display: flex;
+            flex-direction: column;
+        }
+        &__submit{
+            margin: 7% 5% 0;
+        }
+        &__inscription{
+            margin: 7% 5%;
+            text-align: center;
+        }
+    }
+    .authentification{
+        &__form{
+            width: 80%;
         }
     }
 }
