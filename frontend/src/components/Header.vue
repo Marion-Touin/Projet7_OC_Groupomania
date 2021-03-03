@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <div class="header__image">
-            <img  class="header__image--logo" src="../assets/logo.png" alt="logo groupomania">
+            <img  class="header__image--logo" src="../assets/logo-blanc-groupomania.png" alt="logo groupomania">
         </div>
         <div class="header__liste">
                 <router-link to="/accueil" class="header__liste--lien">Accueil</router-link>
@@ -34,7 +34,7 @@ export default {
 .header{
     display: flex;
     width: 100%;
-    background-color: #09FB98;
+    background-color: #0A2041;
     padding: 2% 0;
     &__image{
         width: 30%;
@@ -50,7 +50,7 @@ export default {
         justify-content: space-evenly;
         &--lien{
             text-decoration: none;
-            color: #a92323;
+            color: #FFF;
             font-size: 30px;
             margin: auto 0;
         }

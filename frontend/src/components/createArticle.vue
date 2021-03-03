@@ -88,7 +88,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$color: #a92323;
+$color: #0A2041;
 .modal{
     &__button{
         background-color: $color;

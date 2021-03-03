@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="accueil">
         <Header />
         <Articles />
     </div>
@@ -16,3 +16,9 @@ export default {
     },
 }
 </script>
+
+<style lang="scss" scoped>
+.accueil{
+    background-color: #CF515D;
+}
+</style>
