@@ -1,13 +1,20 @@
 module.exports = app => {
-    const comCtrl = require('../controllers/com'); 
+    const multer = require('../middleware/multer-config');
     var router = require("express").Router();
+    const commentaires = require("../controllers/com.js");
+
     const auth = require('../middleware/auth');
 
-    router.post('/', auth, comCtrl.createCom);
-    router.put('/:id', auth, comCtrl.modifyCom);
-    router.delete('/:id', auth, comCtrl.deleteCom);
-    router.get('/:id', auth, comCtrl.getOneCom)
-    router.get('/', auth, comCtrl.getAllCom);
+    //post un commentaire
+    router.post('/', auth, multer, commentaires.createCommentaire)
+    //modifier un Commentaire
+    router.put('/:id', auth, multer,commentaires.modifyCommentaire);
+    //supprimer la route
+    router.delete('/:id', auth,commentaires.deleteCommentaire);
+    //route pour un Commentaire en fonction d'orderId
+    router.get('/:id', auth,commentaires.getOneCommentaire)
+    // route pour tout les commentaires
+    router.get('/', auth, commentaires.findAll);
 
-   app.use('/api/com', router)
+   app.use('/api/commentaires', router)
 }
