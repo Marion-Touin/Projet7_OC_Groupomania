@@ -19,27 +19,28 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.articles = require("./article.js")(sequelize, Sequelize);
-db.commentaires = require("./commentaire.js")(sequelize, Sequelize);
 db.users = require("./user.model.js")(sequelize, Sequelize);
+db.articles = require("./article.js")(sequelize, Sequelize, db.users);
+db.commentaires = require("./commentaire.js")(sequelize, Sequelize, db.users, db.articles);
+
 
 /* // association table articles et users
-db.users.hasMany(db.articles, { as: "articles" });
-db.articles.belongsTo(db.users, {
+db.user.hasMany(db.article, { as: "article" });
+db.article.belongsTo(db.user, {
   foreignKey: "userId",
   as: "articles",
 });
 
 //association table commentaires à users
-db.users.hasMany(db.commentaires, { as: "commentaires" });
-db.commentaires.belongsTo(db.users, {
+db.user.hasMany(db.commentaire, { as: "commentaire" });
+db.commentaire.belongsTo(db.user, {
   foreignKey: "userId",
   as: "commentaires",
 });
 
 //association table commentaire à articles
-db.articles.hasMany(db.commentaires, { as: "commentaires" });
-db.commentaires.belongsTo(db.articles, {
+db.article.hasMany(db.commentaire, { as: "commentaire" });
+db.commentaire.belongsTo(db.article, {
   foreignKey: "articleId",
   as: "articles",
 }); */
