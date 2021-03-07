@@ -2,23 +2,23 @@
     <main>
         <div>
             <!--Bouton pour poster un message-->
-            <b-button @click="show=true" v-model="articles" class="modal__button">COMMENTER !</b-button>
+            <b-button @click="show=true">MODIFIER</b-button>
             <!--En-tête du modulable-->
-            <b-modal v-model="show" title="Création d'un commentaire" class="modal__title">
+            <b-modal v-model="show" title="Modifier votre message">
                 <!--Contenu du modulable-->
                 <b-container fluid>
-                    <div class="article">
-                        <form method="POST" v-on:submit.prevent="createCommentaire()">
+                    <div>
+                        <form method="POST" v-on:submit.prevent="modifyArticle()">
                         <div>
                             <input class="article__input" type="textarea" name="message" aria-label="Contenu du message" v-model="message" placeholder="Votre message ...">
                             <span v-if="(!$v.message.required && $v.message.$dirty) && submited">Veuillez ajouter un message</span><br>
-                        </div> 
+                        </div>
                         <div>
                             <input class="article__file" type="file" name="image" aria-label="Fichier à sélectionner" @change="onFileSelected">
                             <span v-if="(!$v.selectedFile.required && $v.selectedFile.$dirty) && submited">Veuillez ajouter une image</span>
                             <span v-if="selectedFile">Image sélectionnée : {{ selectedFile.name }}</span><br>
-                        </div> 
-                            <button class="article__button" type="submit" id="btn-send-publication">COMMENTER</button>
+                        </div>  
+                            <button class="article__button" type="submit" id="btn-send-publication">MODIFIER</button>
                         </form>
                     </div>
                 </b-container>
@@ -38,10 +38,10 @@ Vue.use(Vuelidate)
 import axios from 'axios'
 import { required } from 'vuelidate/lib/validators'
 export default {
-    name: 'CreateComment',
+    name: 'modifyArticle',
     data(){
         return{
-            articles:'',
+            userId: localStorage.getItem("userId"),
             message: '',
             selectedFile: null,
             submited: false,
@@ -61,20 +61,20 @@ export default {
             this.selectedFile = event.target.files[0];
             console.log(this.selectedFile);
         },
-        createCommentaire(){
+        modifyArticle(){
             this.submited = true;
             this.$v.$touch();
             if (!this.$v.$invalid){
                 const articleId = parseInt(sessionStorage.getItem('articleId'));
                 const userId = parseInt(localStorage.getItem('userId'));
                 const token = localStorage.getItem('usertoken');
+                const url = 'http://localhost:8080/api/articles/' + articleId
                 let fd = new FormData();
                 fd.append('userId', userId);
                 fd.append('articleId', articleId);
                 fd.append('message', this.message);
                 fd.append('image', this.selectedFile, this.selectedFile.name);
-                console.log(fd)
-                axios.post('http://localhost:8080/api/commentaires', fd, 
+                axios.put(url, fd, 
                 {
                     headers: {
                         'Content-Type': 'multipart/form-data',
@@ -82,7 +82,7 @@ export default {
                     }
                 })
                 .then(() => {
-                    alert('Votre commentaire a bien été enregistré !');
+                    alert('Votre article à bien été modifié !');
                     sessionStorage.clear();
                 })
                 .catch(error => console.log(error));

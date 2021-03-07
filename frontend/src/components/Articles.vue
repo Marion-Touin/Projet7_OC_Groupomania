@@ -7,9 +7,13 @@
             <b-card :img-src = "article.image"  img-alt = "Image de la carte"  img-bottom> 
                 <b-card-text class="article__date">le {{ article.createdAt | formatDate }}</b-card-text> 
                 <b-card-text class="article__message">{{article.message}}</b-card-text>
+                <!-- <p>{{ article.userId.username }}</p> -->
 
                 <!--Bouton pour supprimer l'article-->
                 <button v-on:click="deleteArticle(article.id)" v-if="article.userId == userId || role == 'admin'">Supprimer</button>
+
+                <!--Bouton pour modifier un article-->
+                <button v-on:click="modifyArticles(article.id)" v-if="article.userId == userId"><modifyArticle/></button>
 
                 <!-- <createCommentaire /> -->
                 <button v-on:click="createComment(article.id)"><createCommentaire/></button>
@@ -22,11 +26,13 @@
 import axios from 'axios' 
 import createArticle from '../components/createArticle.vue'
 import createCommentaire from '../components/createCommentaire.vue' 
+import modifyArticle from '../components/modifyArticle.vue'
 export default {
     name: 'Articles',
     components: {
         createArticle,
-        createCommentaire, 
+        createCommentaire,
+        modifyArticle, 
     },
     data(){
         return {
@@ -52,7 +58,7 @@ export default {
             })
             .catch(error => console.log(error));
         },
-            createComment(id){
+        createComment(id){
             const articleId = id;
             const token = localStorage.getItem('usertoken');
             const url = 'http://localhost:8080/api/articles/' + articleId
@@ -63,6 +69,22 @@ export default {
                 }
             })
                 .then(res => {
+                    sessionStorage.setItem('articleId', parseInt(res.data.id));
+                })
+            .catch(error => console.log(error));
+        },
+        modifyArticles(id){
+            const articleId = id;
+            const token = localStorage.getItem('usertoken');
+            const url = 'http://localhost:8080/api/articles/' + articleId
+            axios.get(url, {
+                headers :{
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(res => {
+                    console.log(res);
                     sessionStorage.setItem('articleId', parseInt(res.data.id));
                 })
             .catch(error => console.log(error));
