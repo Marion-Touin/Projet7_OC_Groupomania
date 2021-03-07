@@ -4,7 +4,7 @@
         <createArticle />
         <!--Affichage de l'article-->
         <div id="article" v-for="article in articles" :key="article.articleId" class="article">
-            <b-card :img-src = "article.image"  img-alt = "Image de la carte"  img-bottom> 
+            <b-card :img-src = "article.image"  img-alt = "Image de la carte"  img-bottom class="article__image">
                 <b-card-text class="article__date">le {{ article.createdAt | formatDate }}</b-card-text> 
                 <b-card-text class="article__message">{{article.message}}</b-card-text>
                 <!-- <p>{{ article.userId.username }}</p> -->
@@ -17,7 +17,11 @@
 
                 <!-- <createCommentaire /> -->
                 <button v-on:click="createComment(article.id)"><createCommentaire/></button>
+                
             </b-card> 
+        </div>
+        <div>
+            <Commentaires/>
         </div>
     </main>
 </template>
@@ -27,12 +31,14 @@ import axios from 'axios'
 import createArticle from '../components/createArticle.vue'
 import createCommentaire from '../components/createCommentaire.vue' 
 import modifyArticle from '../components/modifyArticle.vue'
+import Commentaires from '../components/commentaires.vue'
 export default {
     name: 'Articles',
     components: {
         createArticle,
         createCommentaire,
-        modifyArticle, 
+        modifyArticle,
+        Commentaires, 
     },
     data(){
         return {
@@ -130,5 +136,6 @@ $color: #a92323;
         text-align: justify;
         margin: 0 10%;       
     }
+
 }
 </style>
