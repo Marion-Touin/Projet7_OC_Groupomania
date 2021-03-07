@@ -9,15 +9,22 @@
 
                 <!--Bouton pour supprimer un commentaire-->
                 <button v-on:click="deleteCommentaire(commentaire.id)" v-if="commentaire.userId == userId || role == 'admin'">Supprimer</button>
+
+                <!--Bouton pour modifier un commentaire-->
+                <button v-on:click="modifyCommentaires(commentaire.id)" v-if="commentaire.userId == userId"><modifyCommentaire/></button>
             </b-card> 
         </div>
     </main>
 </template>
 
 <script>
-import axios from 'axios' 
+import axios from 'axios'
+import modifyCommentaire from '../components/modifyCommentaire.vue'
 export default {
     name: 'Commentaires',
+        components: {
+        modifyCommentaire,
+    },
     data(){
         return {
             commentaires: "",
@@ -40,6 +47,22 @@ export default {
             .then(() => {
                 alert('commentaire supprimé');
             })
+            .catch(error => console.log(error));
+        },
+        modifyCommentaires(id){
+            const commentaireId = id;
+            const token = localStorage.getItem('usertoken');
+            const url = 'http://localhost:8080/api/commentaires/' + commentaireId
+            axios.get(url, {
+                headers :{
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(res => {
+                    console.log(res);
+                    sessionStorage.setItem('commentaireId', parseInt(res.data.id));
+                })
             .catch(error => console.log(error));
         },
         printNewCommentaires(){

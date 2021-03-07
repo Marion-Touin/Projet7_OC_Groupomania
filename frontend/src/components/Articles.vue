@@ -7,7 +7,7 @@
             <b-card :img-src = "article.image"  img-alt = "Image de la carte"  img-bottom class="article__image">
                 <b-card-text class="article__date">le {{ article.createdAt | formatDate }}</b-card-text> 
                 <b-card-text class="article__message">{{article.message}}</b-card-text>
-                <!-- <p>{{ article.userId.username }}</p> -->
+                <!-- <p>{{ article.User.username }}</p> -->
 
                 <!--Bouton pour supprimer l'article-->
                 <button v-on:click="deleteArticle(article.id)" v-if="article.userId == userId || role == 'admin'">Supprimer</button>
@@ -17,7 +17,7 @@
 
                 <!-- <createCommentaire /> -->
                 <button v-on:click="createComment(article.id)"><createCommentaire/></button>
-                
+
             </b-card> 
         </div>
         <div>
@@ -133,7 +133,7 @@ $color: #a92323;
     }
     &__message{
         font-size: 20px;
-        text-align: justify;
+        text-align: justy;
         margin: 0 10%;       
     }
 
