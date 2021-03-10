@@ -2,7 +2,7 @@
     <main>
         <div>
             <!--Bouton pour poster un message-->
-            <b-button @click="show=true">MODIFIER</b-button>
+            <a @click="show=true">MODIFIER</a>
             <!--En-tête du modulable-->
             <b-modal v-model="show" title="Modifier votre message">
                 <!--Contenu du modulable-->

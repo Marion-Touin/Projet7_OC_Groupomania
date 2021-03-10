@@ -1,4 +1,5 @@
 const db = require("../models/");
+const User = require('../models/user.model');
 const Articles = db.articles;
 const Op = db.Sequelize.Op;
 
@@ -90,7 +91,9 @@ Articles.findByPk(id)
 }
 
 exports.findAll = (req, res, next) => {
-  Articles.findAll({order: [['updatedAt', "DESC"], ['createdAt', "DESC"]] })
+  Articles.findAll({
+
+    order: [['updatedAt', "DESC"], ['createdAt', "DESC"]] })
     .then(data => {
       res.send(data);
     })

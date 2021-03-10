@@ -2,26 +2,35 @@
     <main>
         <!--Affichage du bouton pour créer un article-->
         <createArticle />
-        <!--Affichage de l'article-->
+        <!--Affichage des articles-->
         <div id="article" v-for="article in articles" :key="article.articleId" class="article">
-            <b-card :img-src = "article.image"  img-alt = "Image de la carte"  img-bottom class="article__image">
-                <b-card-text class="article__date">le {{ article.createdAt | formatDate }}</b-card-text> 
-                <b-card-text class="article__message">{{article.message}}</b-card-text>
-                <!-- <p>{{ article.User.username }}</p> -->
+            <b-card no-body class="article__card">
+                <template #header>
+                    <!-- <p>{{ article.user.username }}</p> -->
+                    <b-card-text class="article__date">Le {{ article.createdAt | formatDate }}</b-card-text>
+                        <b-dropdown text="...">
+                            <!--Bouton pour supprimer l'article-->
+                            <b-dropdown-item>        
+                                <a v-on:click="deleteArticle(article.id)" v-if="article.userId == userId || role == 'admin'" class="article__delete">SUPPRIMER</a>
+                            </b-dropdown-item>
+                            <!--Bouton pour modifier un article-->
+                            <b-dropdown-item>        
+                                <a v-on:click="modifyArticles(article.id)" v-if="article.userId == userId" class="article__modify"><modifyArticle/></a>
+                            </b-dropdown-item>
+                        </b-dropdown>
+                </template>
 
-                <!--Bouton pour supprimer l'article-->
-                <button v-on:click="deleteArticle(article.id)" v-if="article.userId == userId || role == 'admin'">Supprimer</button>
+                <b-card-body>
+                    <b-card-text class="article__message">{{article.message}}</b-card-text>
+                    <b-card :img-src = "article.image" img-alt = "Image de la carte"  img-bottom class="article__image"></b-card>
+                </b-card-body>
 
-                <!--Bouton pour modifier un article-->
-                <button v-on:click="modifyArticles(article.id)" v-if="article.userId == userId"><modifyArticle/></button>
-
-                <!-- <createCommentaire /> -->
-                <button v-on:click="createComment(article.id)"><createCommentaire/></button>
-
-            </b-card> 
-        </div>
-        <div>
-            <Commentaires/>
+                <b-card-footer>
+                    <!-- <createCommentaire /> -->
+                    <a v-on:click="createComment(article.id)" class="article__comment"><createCommentaire/></a>
+                    <Commentaires/>
+                </b-card-footer>
+            </b-card>
         </div>
     </main>
 </template>
@@ -129,13 +138,46 @@ $color: #a92323;
     margin-bottom: 5%; 
     &__date{
         font-size: 15px;
-        text-align: right;
+        margin: 2% 5% 2% 60%;
     }
     &__message{
         font-size: 20px;
-        text-align: justy;
-        margin: 0 10%;       
+        text-align: justify;
+        margin: 5% 10%;       
     }
-
+    &__delete{
+        width: 15%;
+        height: 45px;
+        color: #0A2041;
+    }
+    &__modify{
+        color: #0A2041;
+    }
+    &__card{
+        max-width: 100%;
+        border: #0A2041 2px solid;
+    }
+    &__header{
+        display: flex;
+    }
+    &__image{
+        width: 55%;
+        margin: 0 auto ;
+    }
+    &__comment{
+        margin: 2% 70%;
+    }
+}
+.card-header{
+    display: flex;
+}
+.card-body{
+    padding: 0;
+}
+.card-footer{
+    display: flex;
+    flex-direction: column;
+    margin: 2% 0;
+    background-color: #FFF;
 }
 </style>
