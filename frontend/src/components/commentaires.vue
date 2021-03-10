@@ -5,6 +5,7 @@
             <b-card no-body class="commentaire__card">
                 <template #header>
                     <!-- <p>{{ commentaire.User.username }}</p> -->
+                    <p class="commentaire__name">nom</p>
                     <b-card-text class="commentaire__date">Le {{ commentaire.createdAt | formatDate }}</b-card-text> 
                         <b-dropdown text="...">
                             <!--Bouton pour supprimer un commentaire-->
@@ -107,7 +108,7 @@ $color: #a92323;
     margin-bottom: 5%; 
     &__date{
         font-size: 15px;
-        margin: 2% 5% 2% 57%;
+        margin: 2% 5% 2% 50%;
     }
     &__message{
         font-size: 20px;
@@ -133,6 +134,9 @@ $color: #a92323;
     &__image{
         width: 20%;
         margin: 0 auto ;
+    }
+    &__name{
+        font-size: 20px;
     }
 }
 .card-header{

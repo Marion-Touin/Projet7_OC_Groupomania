@@ -7,6 +7,7 @@
             <b-card no-body class="article__card">
                 <template #header>
                     <!-- <p>{{ article.user.username }}</p> -->
+                    <p class="article__name">nom</p>
                     <b-card-text class="article__date">Le {{ article.createdAt | formatDate }}</b-card-text>
                         <b-dropdown text="...">
                             <!--Bouton pour supprimer l'article-->
@@ -138,7 +139,7 @@ $color: #a92323;
     margin-bottom: 5%; 
     &__date{
         font-size: 15px;
-        margin: 2% 5% 2% 60%;
+        margin: 2% 5% 2% 50%;
     }
     &__message{
         font-size: 20px;
@@ -166,6 +167,9 @@ $color: #a92323;
     }
     &__comment{
         margin: 2% 70%;
+    }
+    &__name{
+        font-size: 20px;
     }
 }
 .card-header{
