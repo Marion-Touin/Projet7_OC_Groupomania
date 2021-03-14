@@ -91,3 +91,13 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+@media all and (max-width: 727px){
+    .modal{
+        &__button{
+            font-size: 10px;
+        }
+    }
+}
+</style>

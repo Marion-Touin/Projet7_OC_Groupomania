@@ -4,8 +4,10 @@
         <div id="commentaire" v-for="commentaire in commentaires" :key="commentaire.id">
             <b-card no-body class="commentaire__card">
                 <template #header>
-                    <p class="commentaire__name">{{ commentaire.user.username }}</p>
-                    <a v-on:click="deleteUser(commentaire.user.id)" v-if="role == 'admin'">supprimer</a>
+                    <div class="admin">
+                        <p class="commentaire__name">{{ commentaire.user.username }}</p>
+                        <a v-on:click="deleteUser(commentaire.user.id)" v-if="role == 'admin'" class="commentaire__deleteuser">supprimer</a>
+                    </div>
                     <b-card-text class="commentaire__date">Le {{ commentaire.createdAt | formatDate }}</b-card-text> 
                         <b-dropdown text="...">
                             <!--Bouton pour supprimer un commentaire-->
@@ -123,7 +125,7 @@ $color: #a92323;
     margin-bottom: 5%; 
     &__date{
         font-size: 15px;
-        margin: 2% 5% 2% 50%;
+        margin: 2% 5% 2% 28%;
     }
     &__message{
         font-size: 20px;
@@ -148,10 +150,14 @@ $color: #a92323;
     }
     &__image{
         width: 20%;
-        margin: 0 auto ;
+        margin: 0 auto 2% ;
     }
     &__name{
         font-size: 20px;
+    }
+    &__deleteuser{
+        font-size: 15px;
+        color: #0A2041;
     }
 }
 .card-header{
@@ -163,5 +169,51 @@ $color: #a92323;
 }
 .main{
     width: 100%;
+}
+.admin{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+@media all and (max-width: 1024px){
+    .commentaire{
+        &__date{
+            margin: 2% 5% 2% 21%;
+        }
+    }
+}
+
+@media all and (max-width: 727px){
+    .commentaire{
+        &__date{
+            font-size: 10px;
+            margin: 1% 2%;
+        }
+        &__message{
+            font-size: 15px;    
+        }
+        &__delete{
+            font-size: 10px;
+        }
+        &__modify{
+            font-size: 10px;
+        }
+        &__image{
+            width: 20%;
+            margin: 0 auto 2% ;
+        }
+        &__name{
+            font-size: 15px;
+            margin: 0;
+        }
+        &__deleteuser{
+            font-size: 10px;
+            color: #0A2041;
+        }
+    }
+    .card-header{
+        padding: 1%;
+    }
 }
 </style>

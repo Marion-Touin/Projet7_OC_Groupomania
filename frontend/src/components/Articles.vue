@@ -6,10 +6,12 @@
         <div id="article" v-for="article in articles" :key="article.articleId" class="article">
             <b-card no-body class="article__card">
                 <template #header>
-                    <p class="article__name">{{ article.user.username }}</p>
-                    <a v-on:click="deleteUser(article.user.id)" v-if="role == 'admin'">supprimer</a>
+                    <div class="admin">
+                        <p class="article__name">{{ article.user.username }}</p>
+                        <a v-on:click="deleteUser(article.user.id)" v-if="role == 'admin'" class="article__deleteuser">supprimer</a>
+                    </div>
                     <b-card-text class="article__date">Le {{ article.createdAt | formatDate }}</b-card-text>
-                        <b-dropdown text="...">
+                        <b-dropdown text="..." class="button">
                             <!--Bouton pour supprimer l'article-->
                             <b-dropdown-item>        
                                 <a v-on:click="deleteArticle(article.id)" v-if="article.userId == userId || role == 'admin'" class="article__delete">SUPPRIMER</a>
@@ -154,7 +156,7 @@ $color: #a92323;
     margin-bottom: 5%; 
     &__date{
         font-size: 15px;
-        margin: 2% 5% 2% 50%;
+        margin: 2% 5% 2% 30%;
     }
     &__message{
         font-size: 20px;
@@ -186,6 +188,10 @@ $color: #a92323;
     &__name{
         font-size: 20px;
     }
+    &__deleteuser{
+        font-size: 15px;
+        color: #0A2041;
+    }
 }
 .card-header{
     display: flex;
@@ -198,5 +204,58 @@ $color: #a92323;
     flex-direction: column;
     margin: 2% 0;
     background-color: #FFF;
+}
+.admin{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+@media all and (max-width: 1024px){
+    .article{
+        width: 70%;
+        &__date{
+            margin: 2% 5% 2% 22%;
+        }
+        &__image{
+            width: 35%;
+        }
+    }
+}
+
+@media all and (max-width: 727px){
+    .article{
+        width: 80%;
+        &__date{
+            font-size: 10px;
+            margin: 1% 2%;
+        }
+        &__message{
+            font-size: 15px;      
+        }
+        &__delete{
+            font-size: 10px;
+        }
+        &__modify{
+            font-size: 10px;
+        }
+        &__image{
+            width: 30%;
+        }
+        &__comment{
+            margin: 2% 55%;
+        }
+        &__name{
+            font-size: 15px;
+            margin: 0;
+        }
+        &__deleteuser{
+            font-size: 10px;
+            color: #0A2041;
+        }
+    }
+    .button{
+        height: 35px;
+    }
 }
 </style>

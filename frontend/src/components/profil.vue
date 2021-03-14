@@ -124,4 +124,41 @@ export default {
         justify-content: center;
     }
 }
+
+@media all and (max-width: 1024px){
+    .profil{
+        height: 1000px;
+        &__info{
+            width: 80%;
+        }
+    }
+}
+
+@media all and (max-width: 727px){
+    .profil{
+        height: 550px;
+        padding: 15% 0;
+        &__info{
+            margin-bottom: 10%;
+        }
+        &__hello{
+            font-size: 20px;
+        }
+        &__para{
+            font-size: 15px;
+        }
+        &__name{
+            font-size: 15px;
+        }
+        &__mail{
+            font-size: 15px;
+        }
+        &__compte{
+            font-size: 15px;
+        }
+        &__button{
+            font-size: 15px;
+        }
+    }
+}
 </style>

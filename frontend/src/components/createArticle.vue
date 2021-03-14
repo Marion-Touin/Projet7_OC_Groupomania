@@ -4,7 +4,7 @@
             <!--Bouton pour poster un message-->
             <b-button @click="show=true" class="modal__button">Poster un message !</b-button>
             <!--En-tête du modulable-->
-            <b-modal v-model="show" title="Création d'un message" class="modal__title">
+            <b-modal v-model="show" title="Création d'un message" class="modal__title" ok-only>
                 <!--Contenu du modulable-->
                 <b-container fluid>
                     <div class="article">
@@ -79,6 +79,7 @@ export default {
                 })
                 .then(() => {
                     alert('Votre post à bien été enregistré !');
+                    
                 })
                 .catch(error => console.log(error));
             }
@@ -116,6 +117,24 @@ $color: #0A2041;
         font-size: 20px;
         margin: 10% 25% 0;
         padding: 1% 15%;
+    }
+}
+
+@media all and (max-width: 1024px){
+    .modal{
+        &__button{
+            font-size: 20px;
+            margin: 3% 35%;
+        }
+    }
+}
+
+@media all and (max-width: 727px){
+    .modal{
+        &__button{
+            font-size: 15px;
+            margin: 3% 25%;
+        }
     }
 }
 </style>

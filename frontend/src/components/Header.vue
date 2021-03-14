@@ -57,4 +57,24 @@ export default {
     }
 }
 
+@media all and (max-width: 1024px){
+    .header{
+        &__liste{
+            &--lien{
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+@media all and (max-width: 727px){
+    .header{
+        &__liste{
+            &--lien{
+                font-size: 10px;
+            }
+        }
+    }
+}
+
 </style>
