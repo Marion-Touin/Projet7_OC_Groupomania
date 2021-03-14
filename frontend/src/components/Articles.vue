@@ -6,8 +6,8 @@
         <div id="article" v-for="article in articles" :key="article.articleId" class="article">
             <b-card no-body class="article__card">
                 <template #header>
-                    <!-- <p>{{ article.user.username }}</p> -->
-                    <p class="article__name">nom</p>
+                    <p class="article__name">{{ article.user.username }}</p>
+                    <a v-on:click="deleteUser(article.user.id)" v-if="role == 'admin'">supprimer</a>
                     <b-card-text class="article__date">Le {{ article.createdAt | formatDate }}</b-card-text>
                         <b-dropdown text="...">
                             <!--Bouton pour supprimer l'article-->
@@ -71,6 +71,21 @@ export default {
             })
             .then(() => {
                 alert('article supprimé');
+            })
+            .catch(error => console.log(error));
+        },
+        deleteUser(id){
+            const userId = id;
+            const token = localStorage.getItem('usertoken');
+            const url = 'http://localhost:8080/api/user/' + userId
+            axios.delete(url, {
+                headers :{
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(() => {
+                alert('utilisateur supprimé');
             })
             .catch(error => console.log(error));
         },

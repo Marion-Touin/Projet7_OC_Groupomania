@@ -1,11 +1,11 @@
 <template>
     <main>
         <!--Affichage de l'article-->
-        <div id="commentaire" v-for="commentaire in commentaires" :key="commentaire.articleId">
+        <div id="commentaire" v-for="commentaire in commentaires" :key="commentaire.id">
             <b-card no-body class="commentaire__card">
                 <template #header>
-                    <!-- <p>{{ commentaire.User.username }}</p> -->
-                    <p class="commentaire__name">nom</p>
+                    <p class="commentaire__name">{{ commentaire.user.username }}</p>
+                    <a v-on:click="deleteUser(commentaire.user.id)" v-if="role == 'admin'">supprimer</a>
                     <b-card-text class="commentaire__date">Le {{ commentaire.createdAt | formatDate }}</b-card-text> 
                         <b-dropdown text="...">
                             <!--Bouton pour supprimer un commentaire-->
@@ -57,6 +57,21 @@ export default {
             })
             .then(() => {
                 alert('commentaire supprimé');
+            })
+            .catch(error => console.log(error));
+        },
+        deleteUser(id){
+            const userId = id;
+            const token = localStorage.getItem('usertoken');
+            const url = 'http://localhost:8080/api/user/' + userId
+            axios.delete(url, {
+                headers :{
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(() => {
+                alert('utilisateur supprimé');
             })
             .catch(error => console.log(error));
         },

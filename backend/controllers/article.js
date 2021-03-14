@@ -1,6 +1,7 @@
 const db = require("../models/");
-const User = require('../models/user.model');
+const User = db.users;
 const Articles = db.articles;
+const Comment = db.commentaires;
 const Op = db.Sequelize.Op;
 
 exports.createArticle = (req, res, next) => {
@@ -92,7 +93,7 @@ Articles.findByPk(id)
 
 exports.findAll = (req, res, next) => {
   Articles.findAll({
-
+    include: [{model: User}],
     order: [['updatedAt', "DESC"], ['createdAt', "DESC"]] })
     .then(data => {
       res.send(data);

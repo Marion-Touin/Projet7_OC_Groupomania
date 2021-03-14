@@ -1,5 +1,6 @@
 const db = require("../models/");
 const Commentaires = db.commentaires;
+const User = db.users;
 const Op = db.Sequelize.Op;
 
 exports.createCommentaire = (req, res, next) => {
@@ -93,7 +94,13 @@ Commentaires.findByPk(id)
 }
 
 exports.findAll = (req, res, next) => {
-  Commentaires.findAll({order: [['updatedAt', "DESC"], ['createdAt', "DESC"]] })
+  Commentaires.findAll({
+/*     where: {
+      articleId: req.params.articleId    
+    }, */
+    include: [{model: User}],
+    order: [['updatedAt', "DESC"], ['createdAt', "DESC"]] })
+  
     .then(data => {
       res.send(data);
     })
