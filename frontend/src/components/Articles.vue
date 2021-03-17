@@ -73,6 +73,7 @@ export default {
             })
             .then(() => {
                 alert('article supprimé');
+                document.location.reload();
             })
             .catch(error => console.log(error));
         },
@@ -88,6 +89,7 @@ export default {
             })
             .then(() => {
                 alert('utilisateur supprimé');
+                document.location.reload();
             })
             .catch(error => console.log(error));
         },

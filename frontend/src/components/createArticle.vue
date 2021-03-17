@@ -79,6 +79,7 @@ export default {
                 })
                 .then(() => {
                     alert('Votre post à bien été enregistré !');
+                    document.location.reload();
                     
                 })
                 .catch(error => console.log(error));

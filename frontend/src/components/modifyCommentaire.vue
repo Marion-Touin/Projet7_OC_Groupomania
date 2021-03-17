@@ -84,6 +84,7 @@ export default {
                 .then(() => {
                     alert('Votre commentaire à bien été modifié !');
                     sessionStorage.clear();
+                    document.location.reload();
                 })
                 .catch(error => console.log(error));
             }
